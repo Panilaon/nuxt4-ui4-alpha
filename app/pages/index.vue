@@ -1,0 +1,3 @@
+<template>
+  <AuthLoginModal />
+</template>
