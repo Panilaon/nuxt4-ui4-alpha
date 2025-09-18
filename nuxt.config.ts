@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   experimental: {
     buildCache: true
   },
-  modules: ['@nuxt/ui', 'nuxt-auth-utils'],
+  modules: ['@nuxt/ui', 'nuxt-auth-utils', '@nuxtjs/eslint-module'],
   css: [
     '~/assets/css/main.css'
   ]
