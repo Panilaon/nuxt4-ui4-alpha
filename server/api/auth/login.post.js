@@ -14,8 +14,6 @@ export default defineEventHandler(async (event) => {
   const { username, email, password } = body
   let data
 
-  // console.log(encrypt(JSON.stringify({ username, password })))
-
   try {
     // Special admin headers when logging in
     // todo: Rewrite API so this is not nessessary?
@@ -32,6 +30,7 @@ export default defineEventHandler(async (event) => {
       }
     })
   } catch (error) {
+    console.warn(error)
     return createError({
       statusCode: 400,
       statusMessage: "Invalid login credentials",

@@ -23,24 +23,23 @@ const state = ref({
 // password show/hide text eye icons
 const showPassword = ref(false)
 const pwFieldType = computed(() => showPassword.value ? 'text' : 'password')
-const pwIcon = computed(() => showPassword.value ? 'i-heroicons-eye-slash' : 'i-heroicons-eye')
+const pwIcon = computed(() => showPassword.value ? 'i-heroicons-eye' : 'i-heroicons-eye-slash')
 
 const onSubmit = async () => {
   try {
     await login({ username: state.value.username, password: state.value.password })
     emit('login')
-
     navigateTo(props.redirectUrl)
-    // modal.close() // needed?
   } catch (err) { }
 }
 </script>
 
 <template>
-  <UModal v-model="isOpen" :ui="{ background: 'bg-slate-100' }">
+  <UModal v-model="isOpen" :ui="{ background: 'bg-slate-100' }" title="Login modal"
+    description="Enter your credentials below.">
     <UButton label="Login" color="neutral" variant="subtle" />
 
-    <template #body>
+    <template #content>
       <!-- logo -->
       <div class="w-auto grid items-center justify-center px-5 pt-10 pb-6">
         <div class="flex justify-center">
@@ -59,15 +58,15 @@ const onSubmit = async () => {
 
           <!-- form: username -->
           <UFormField label="Username" name="username">
-            <UInput v-model="state.username" type="text" size="xl" icon="i-heroicons-user-circle-solid" />
+            <UInput class="w-full" v-model="state.username" type="text" size="xl" icon="i-heroicons-user-circle-solid" />
           </UFormField>
 
           <!-- form: password with eye -->
           <UFormField label="Password" name="password" class="mt-4">
-            <UInput v-model="state.password" size="xl" icon="i-heroicons-lock-closed" :type="pwFieldType"
+            <UInput class="w-full" v-model="state.password" size="xl" icon="i-heroicons-lock-closed" :type="pwFieldType"
               :ui="{ icon: { trailing: { pointer: '' } } }">
               <template #trailing>
-                <UButton square color="gray" variant="link" :padded="false" :icon="pwIcon"
+                <UButton square color="neutral" variant="link" :padded="false" :icon="pwIcon"
                   @click="showPassword = !showPassword" />
               </template>
             </UInput>
@@ -80,7 +79,7 @@ const onSubmit = async () => {
 
           <!-- submit button -->
           <div class="text-right mt-6 mb-5">
-            <UButton square label="Login" color="black" variant="solid" type="submit" size="xl" block :loading="loading"
+            <UButton square label="Login" color="primary" variant="solid" type="submit" size="xl" block :loading="loading"
               class="shadow-xl" />
           </div>
 
